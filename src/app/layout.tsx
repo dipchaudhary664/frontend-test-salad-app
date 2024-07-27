@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <div className="flex flex-row gap-1 pb-10 bg-slate-50">
+          <div className="flex flex-row gap-1 bg-slate-50">
             <Sidebar />
             {children}
           </div>
