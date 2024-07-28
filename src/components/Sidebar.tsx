@@ -8,7 +8,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-white shadow-lg p-6">
+    <div className="min-h-screen bg-white shadow-lg p-6 hidden flex-col md:flex">
       <h1 className="text-2xl font-bold mb-6 text-gray-800">
         SALADMAKER
         <span className="text-[#F8B602] text-3xl">.</span>

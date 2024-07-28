@@ -1,6 +1,7 @@
+// slice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// Define the Ingredient interface
+
 interface Ingredient {
   ingredient: string;
   category: "vegetable" | "fruit" | "protein" | "dressing";
@@ -8,20 +9,20 @@ interface Ingredient {
   calories: number;
 }
 
-// Define the initial state
 interface DataState {
   data: Ingredient[];
+  filteredData: Ingredient[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
 
 const initialState: DataState = {
   data: [],
+  filteredData: [],
   status: "idle",
   error: null,
 };
 
-// Fetch ingredient data from a local JSON file
 export const fetchIngredientData = createAsyncThunk(
   "data/fetchIngredientData",
   async () => {
@@ -30,11 +31,20 @@ export const fetchIngredientData = createAsyncThunk(
   }
 );
 
-// Create the slice
 const dataSlice = createSlice({
   name: "ingredient",
   initialState,
-  reducers: {},
+  reducers: {
+    filterData: (state, action) => {
+      if (action.payload.length === 0) {
+        state.filteredData = state.data;
+      } else {
+        state.filteredData = state.data.filter((ingredient) =>
+          action.payload.includes(ingredient.category)
+        );
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredientData.pending, (state) => {
@@ -43,6 +53,7 @@ const dataSlice = createSlice({
       .addCase(fetchIngredientData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
+        state.filteredData = action.payload;
       })
       .addCase(fetchIngredientData.rejected, (state, action) => {
         state.status = "failed";
@@ -51,4 +62,5 @@ const dataSlice = createSlice({
   },
 });
 
+export const { filterData } = dataSlice.actions;
 export default dataSlice.reducer;
