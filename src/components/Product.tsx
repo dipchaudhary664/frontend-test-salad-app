@@ -25,8 +25,9 @@ export default function Product() {
 
   const selectedIngredients = Object.keys(counts).length > 0;
 
+  // Ensure this calculates the total calories based on the ingredient count
   const totalCalories = Object.values(counts).reduce(
-    (total, item) => total + item.calories * item.count,
+    (total, item) => total + (item.calories || 0) * item.count,
     0
   );
 

@@ -1,23 +1,48 @@
-// Define the Recipe type
+import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
+
 export type Recipe = {
-  id?: string; // Optional id for unique identification
+  id: string; // Required id for unique identification
   name: string;
   calories: number;
 };
 
-// Update the addRecipe action creator to use the Recipe type
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+const recipe = "recipes";
+
+const loadFromLocalStorage = (): Recipe[] => {
+  const savedRecipes = localStorage.getItem(recipe);
+  return savedRecipes ? JSON.parse(savedRecipes) : [];
+};
+
+const saveToLocalStorage = (recipes: Recipe[]) => {
+  localStorage.setItem(recipe, JSON.stringify(recipes));
+};
 
 const recipeSlice = createSlice({
   name: "recipe",
-  initialState: [] as Recipe[], // Initialize the state as an array of Recipe
+  initialState: loadFromLocalStorage(), // Initialize the state from localStorage
   reducers: {
-    addRecipe: (state, action: PayloadAction<Recipe>) => {
-      state.push(action.payload);
+    addRecipe: (state, action: PayloadAction<Omit<Recipe, "id">>) => {
+      const newRecipe: Recipe = { ...action.payload, id: nanoid() };
+      state.push(newRecipe);
+      saveToLocalStorage(state); // Save to localStorage whenever a recipe is added
     },
-    // Add other reducers here
+    deleteRecipe: (state, action: PayloadAction<string>) => {
+      const updatedRecipes = state.filter(
+        (recipe) => recipe.id !== action.payload
+      );
+      saveToLocalStorage(updatedRecipes);
+      return updatedRecipes;
+    },
+    editRecipe: (state, action: PayloadAction<Recipe>) => {
+      const { id, name, calories } = action.payload;
+      const updatedRecipes = state.map((recipe) =>
+        recipe.id === id ? { ...recipe, name, calories } : recipe
+      );
+      saveToLocalStorage(updatedRecipes);
+      return updatedRecipes;
+    },
   },
 });
 
-export const { addRecipe } = recipeSlice.actions;
+export const { addRecipe, deleteRecipe, editRecipe } = recipeSlice.actions;
 export default recipeSlice.reducer;

@@ -20,9 +20,8 @@ export default function ModalBox({
 
   const handleCreateNewRecipe = () => {
     if (recipeName.trim()) {
-      dispatch(addRecipe({ name: recipeName, calories: 188 })); // Adjust calories as needed
+      dispatch(addRecipe({ name: recipeName, calories: 188 }));
       setIsModalOpen(false);
-      // Remove the toast notification
     }
   };
 
