@@ -120,7 +120,11 @@ export default function Product() {
           )}
         </div>
       )}
-      <ModalBox isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <ModalBox
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        totalCalories={totalCalories}
+      />
     </div>
   );
 }

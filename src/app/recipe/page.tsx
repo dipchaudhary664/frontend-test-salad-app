@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { useState } from "react";
-import DeleteRecipe from "../../components/DeleteRecipe"; // Adjust the import path if needed
+import DeleteRecipe from "../../components/DeleteRecipe";
 import { useRouter } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -27,11 +27,7 @@ export default function Page() {
   return (
     <div className="p-4 w-full">
       <div className="flex items-start gap-10">
-        <button
-          onClick={() => router.push("/")}
-          className=" flex md:hidden
-        "
-        >
+        <button onClick={() => router.push("/")} className="flex md:hidden">
           <IoIosArrowBack size={30} />
         </button>
         <h1 className="text-xl md:text-3xl text-center md:text-start font-bold mb-6">

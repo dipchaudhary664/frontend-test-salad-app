@@ -1,17 +1,19 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
+import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { addRecipe } from "../redux/recipeSlice";
 
 type ModalBoxProps = {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
+  totalCalories: number; // Add this line
 };
 
 export default function ModalBox({
   isModalOpen,
   setIsModalOpen,
+  totalCalories, // Add this line
 }: ModalBoxProps) {
   const [recipeName, setRecipeName] = useState("");
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ export default function ModalBox({
 
   const handleCreateNewRecipe = () => {
     if (recipeName.trim()) {
-      dispatch(addRecipe({ name: recipeName, calories: 188 }));
+      dispatch(addRecipe({ name: recipeName, calories: totalCalories }));
       setIsModalOpen(false);
     }
   };
