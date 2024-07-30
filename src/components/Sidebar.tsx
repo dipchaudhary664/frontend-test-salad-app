@@ -1,18 +1,23 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaBook } from "react-icons/fa";
 import { MdOutlineFastfood } from "react-icons/md";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <div className="min-h-screen bg-white shadow-lg p-6 hidden flex-col md:flex">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">
+      <button
+        type="button"
+        onClick={() => router.push("/")}
+        className="text-2xl font-bold mb-6 text-gray-800"
+      >
         SALADMAKER
         <span className="text-[#F8B602] text-3xl">.</span>
-      </h1>
+      </button>
       <nav>
         <ul>
           <li className="mb-4">

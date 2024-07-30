@@ -6,6 +6,7 @@ import { useState } from "react";
 import DeleteRecipe from "../../components/DeleteRecipe";
 import { useRouter } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
+import Link from "next/link";
 
 export default function Page() {
   const router = useRouter();
@@ -35,7 +36,9 @@ export default function Page() {
         </h1>
       </div>
       <div className="bg-white w-full p-4 rounded-lg">
-        <h1 className="text-xl font-semibold mb-4">Your Recipes</h1>
+        <h1 className="text-xl text-[#2E2E2E] font-semibold mb-4">
+          Your Recipes
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {recipes.map((recipe) => (
             <div
@@ -67,14 +70,12 @@ export default function Page() {
                     <span className="text-sm font-semibold">Delete</span>
                   </button>
 
-                  <button
-                    type="button"
-                    onClick={() => router.push("/edit_recipe")}
-                    className="bg-white text-[#2E2E2E] flex-1 min-w-[100px] h-10 rounded-full hover:text-gray-800 flex items-center justify-center gap-2"
-                  >
-                    <FaEdit size={15} />
-                    <span className="text-sm font-semibold">Edit</span>
-                  </button>
+                  <Link href={`/recipe/${recipe.name}`}>
+                    <button className="bg-white text-[#2E2E2E] flex-1 min-w-[100px] h-10 rounded-full hover:text-gray-800 flex items-center justify-center gap-2">
+                      <FaEdit size={15} />
+                      <span className="text-sm font-semibold">Edit</span>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
