@@ -25,11 +25,40 @@ export default function Product() {
 
   const selectedIngredients = Object.keys(counts).length > 0;
 
-  // Ensure this calculates the total calories based on the ingredient count
+  // Calculate total calories based on the ingredient count
   const totalCalories = Object.values(counts).reduce(
     (total, item) => total + (item.calories || 0) * item.count,
     0
   );
+
+  const handleCreateRecipeClick = () => {
+    // Extract image URLs for the selected ingredients
+    const selectedImages = Object.keys(counts).reduce((acc, ingredient) => {
+      const item = filteredData.find((data) => data.ingredient === ingredient);
+      if (item && item.image) {
+        acc.push(item.image);
+      }
+      return acc;
+    }, [] as string[]);
+
+    // Log all relevant data
+    console.log("Selected Ingredients:", counts);
+
+    // Example logging of additional recipe data if you want to include more details
+    const recipeDetails = {
+      ingredients: Object.keys(counts).map((ingredient) => ({
+        name: ingredient,
+        count: counts[ingredient].count,
+        calories: counts[ingredient].calories,
+      })),
+      totalCalories,
+      images: selectedImages,
+    };
+
+    console.log("Recipe Details:", recipeDetails);
+
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="pb-10">
@@ -111,7 +140,7 @@ export default function Product() {
                 <p className="text-white font-bold">{totalCalories} Cal</p>
                 <button
                   className="ml-4 bg-[#2FB62D] text-white text-lg px-4 py-2 rounded-md"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={handleCreateRecipeClick}
                 >
                   Create Recipe
                 </button>

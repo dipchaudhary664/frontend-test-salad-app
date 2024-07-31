@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
 
 export type Recipe = {
   id: string; // Required id for unique identification
+  image: string; //
   name: string;
   calories: number;
 };
@@ -34,9 +35,9 @@ const recipeSlice = createSlice({
       return updatedRecipes;
     },
     editRecipe: (state, action: PayloadAction<Recipe>) => {
-      const { id, name, calories } = action.payload;
+      const { id, image, name, calories } = action.payload;
       const updatedRecipes = state.map((recipe) =>
-        recipe.id === id ? { ...recipe, name, calories } : recipe
+        recipe.id === id ? { ...recipe, name, calories, image } : recipe
       );
       saveToLocalStorage(updatedRecipes);
       return updatedRecipes;
