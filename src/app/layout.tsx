@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
-import { Provider } from "react-redux";
-import store from "@/redux/store";
+import { ToastContainer } from "./Next_Tost";
+import "react-toastify/dist/ReactToastify.css";
 import ReduxProvider from "@/redux/ReduxProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,6 +25,7 @@ export default function RootLayout({
           <div className="flex flex-row gap-1 bg-slate-50 w-full">
             <Sidebar />
             {children}
+            <ToastContainer />
           </div>
         </ReduxProvider>
       </body>

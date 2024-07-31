@@ -3,17 +3,18 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { addRecipe } from "../redux/recipeSlice";
+import { toast, Bounce } from "react-toastify"; // Import toast and Bounce
 
 type ModalBoxProps = {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
-  totalCalories: number; // Add this line
+  totalCalories: number;
 };
 
 export default function ModalBox({
   isModalOpen,
   setIsModalOpen,
-  totalCalories, // Add this line
+  totalCalories,
 }: ModalBoxProps) {
   const [recipeName, setRecipeName] = useState("");
   const dispatch = useDispatch();
@@ -22,8 +23,27 @@ export default function ModalBox({
 
   const handleCreateNewRecipe = () => {
     if (recipeName.trim()) {
-      dispatch(addRecipe({ name: recipeName, calories: totalCalories }));
+      dispatch(
+        addRecipe({
+          name: recipeName,
+          calories: totalCalories,
+          image: "",
+        })
+      );
       setIsModalOpen(false);
+
+      // Show toast message
+      toast.success("Recipe Created Successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
   };
 

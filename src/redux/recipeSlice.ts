@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction, nanoid } from "@reduxjs/toolkit";
 
 export type Recipe = {
-  id: string; // Required id for unique identification
-  image: string; //
+  id: string;
+  image: string;
   name: string;
   calories: number;
 };

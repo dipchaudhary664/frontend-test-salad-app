@@ -7,6 +7,7 @@ import DeleteRecipe from "../../components/DeleteRecipe";
 import { useRouter } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
@@ -39,48 +40,65 @@ export default function Page() {
         <h1 className="text-xl text-[#2E2E2E] font-semibold mb-4">
           Your Recipes
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {recipes.map((recipe) => (
-            <div
-              key={recipe.id}
-              className="relative bg-[#f8b703] p-4 rounded-lg shadow-md overflow-hidden"
-            >
-              {/* Background circles */}
-              <div className="absolute top-0 left-0 w-28 h-28 bg-[#f0862d] rounded-full transform -translate-x-4 -translate-y-4 z-0"></div>
-              <div className="absolute bottom-0 right-0 w-28 h-28 bg-[#cfbc27] rounded-full transform translate-x-4 translate-y-4 z-0"></div>
 
-              {/* Content */}
-              <div className="flex flex-col space-y-16">
-                <div className="relative z-10 p-4 bg-white rounded-lg shadow-lg">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {recipe.name}
-                  </h3>
-                  <p className="mt-2 text-3xl font-bold text-yellow-500">
-                    {recipe.calories} <span className="text-xl">Cal</span>
-                  </p>
-                </div>
+        {recipes.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-8 p-6 md:p-12 lg:p-16">
+            <p className="text-center text-red-500 text-lg">
+              No recipes created by you. Please create a recipe.
+            </p>
+            <Image
+              src="/logo.png"
+              alt="logo"
+              quality={100}
+              height={80}
+              width={80}
+              className="w"
+            />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {recipes.map((recipe) => (
+              <div
+                key={recipe.id}
+                className="relative bg-[#f8b703] p-4 rounded-lg shadow-md overflow-hidden"
+              >
+                {/* Background circles */}
+                <div className="absolute top-0 left-0 w-28 h-28 bg-[#f0862d] rounded-full transform -translate-x-4 -translate-y-4 z-0"></div>
+                <div className="absolute bottom-0 right-0 w-28 h-28 bg-[#cfbc27] rounded-full transform translate-x-4 translate-y-4 z-0"></div>
 
-                {/* Buttons */}
-                <div className="flex justify-between gap-6 mt-4 relative z-10">
-                  <button
-                    onClick={() => openDeleteModal(recipe.id)}
-                    className="bg-white text-red-500 flex-1 min-w-[100px] h-10 rounded-full hover:text-red-600 flex items-center justify-center gap-2"
-                  >
-                    <FaTrashAlt size={18} />
-                    <span className="text-sm font-semibold">Delete</span>
-                  </button>
+                {/* Content */}
+                <div className="flex flex-col space-y-16">
+                  <div className="relative z-10 p-4 bg-white rounded-lg shadow-lg">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {recipe.name}
+                    </h3>
+                    <p className="mt-2 text-3xl font-bold text-yellow-500">
+                      {recipe.calories} <span className="text-xl">Cal</span>
+                    </p>
+                  </div>
 
-                  <Link href={`/recipe/${recipe.name}`}>
-                    <button className="bg-white text-[#2E2E2E] flex-1 min-w-[100px] h-10 rounded-full hover:text-gray-800 flex items-center justify-center gap-2">
-                      <FaEdit size={15} />
-                      <span className="text-sm font-semibold">Edit</span>
+                  {/* Buttons */}
+                  <div className="flex justify-between gap-6 mt-4 relative z-10">
+                    <button
+                      onClick={() => openDeleteModal(recipe.id)}
+                      className="bg-white text-red-500 flex-1 min-w-[100px] h-10 rounded-full hover:text-red-600 flex items-center justify-center gap-2"
+                    >
+                      <FaTrashAlt size={18} />
+                      <span className="text-sm font-semibold">Delete</span>
                     </button>
-                  </Link>
+
+                    <Link href={`/recipe/${recipe.name}`}>
+                      <button className="bg-white text-[#2E2E2E] flex-1 min-w-[100px] h-10 rounded-full hover:text-gray-800 flex items-center justify-center gap-2">
+                        <FaEdit size={15} />
+                        <span className="text-sm font-semibold">Edit</span>
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Modal for delete confirmation */}

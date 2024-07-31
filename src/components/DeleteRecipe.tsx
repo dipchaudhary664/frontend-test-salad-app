@@ -2,27 +2,40 @@
 import Image from "next/image";
 import React from "react";
 import { deleteRecipe } from "../redux/recipeSlice";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { toast, Bounce } from "react-toastify"; // Import toast and Bounce
 
 type DeleteRecipeProps = {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
-  recipeId: string; // Add recipeId as a prop
+  recipeId: string;
 };
 
 export default function DeleteRecipe({
   isModalOpen,
   setIsModalOpen,
-  recipeId, // Use recipeId here
+  recipeId,
 }: DeleteRecipeProps) {
   const dispatch = useDispatch();
 
   if (!isModalOpen) return null;
 
   const handleDelete = () => {
-    dispatch(deleteRecipe(recipeId)); // Pass the recipeId to deleteRecipe
-    setIsModalOpen(false); // Close the modal after deletion
+    dispatch(deleteRecipe(recipeId));
+    setIsModalOpen(false);
+
+    // Show toast message
+    toast.success("Your Created Recipe Delete Successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   return (
@@ -53,7 +66,7 @@ export default function DeleteRecipe({
             />
           </div>
           <div className="text-center mt-4 w-full">
-            <h3 className="text-lg font-semibold mb-4">Delete Recipe ?</h3>
+            <h3 className="text-lg font-semibold mb-4">Delete Recipe?</h3>
             <div className="flex justify-between items-center w-full pt-4">
               <button
                 onClick={() => setIsModalOpen(false)}
