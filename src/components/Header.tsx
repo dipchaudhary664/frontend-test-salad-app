@@ -18,7 +18,7 @@ export default function Header() {
             <GiHamburgerMenu size={24} color="#A098AE" />
           </button>
           <h1 className="text-lg sm:text-3xl font-extrabold text-gray-800 ml-4 sm:ml-0">
-            Let's Create...your own salad!!!
+            Let&apos;s Create...your own salad!!!
           </h1>
         </div>
         <div className="flex mt-4 justify-end sm:mt-0 w-full sm:w-auto">

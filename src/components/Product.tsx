@@ -6,7 +6,7 @@ import Image from "next/image";
 import { RootState, AppDispatch } from "@/redux/store";
 import { fetchIngredientData } from "@/redux/slice";
 import { increment, decrement } from "@/redux/ingredientCountSlice";
-import ModalBox from "./ModalBox"; // Import the ModalBox component
+import ModalBox from "./ModalBox";
 
 export default function Product() {
   const dispatch: AppDispatch = useDispatch();

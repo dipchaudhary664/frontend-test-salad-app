@@ -1,4 +1,3 @@
-// pages/edit-recipe.tsx
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -37,7 +36,7 @@ const ingredientsData: Ingredient[] = [
   },
 ];
 
-const EditRecipe: React.FC = () => {
+export default function Page() {
   const router = useRouter();
 
   const totalCalories = ingredientsData.reduce(
@@ -105,6 +104,4 @@ const EditRecipe: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default EditRecipe;
+}

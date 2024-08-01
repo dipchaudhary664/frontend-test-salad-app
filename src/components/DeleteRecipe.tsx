@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { deleteRecipe } from "../redux/recipeSlice";
 import { useDispatch } from "react-redux";
-import { toast, Bounce } from "react-toastify"; // Import toast and Bounce
+import { toast, Bounce } from "react-toastify";
 
 type DeleteRecipeProps = {
   isModalOpen: boolean;

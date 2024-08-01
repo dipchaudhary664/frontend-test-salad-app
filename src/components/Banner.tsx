@@ -9,7 +9,7 @@ export default function Banner() {
           Fresh & <br /> Tasty Salads
         </h1>
         <p className="text-md text-[#012738]">
-          Relax, we've got you covered every day of the week
+          Relax, we&apos;ve got you covered every day of the week
         </p>
       </div>
       <div className="">
